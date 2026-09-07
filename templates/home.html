@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predict math score — Student Exam Performance Indicator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <a class="skip-link" href="#exam-form">Skip to form</a>
+
+  <header class="board">
+    <div class="board-inner">
+      <div class="badge-row">
+        <span class="board-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#14302B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </span>
+        <p class="eyebrow">Student exam performance indicator</p>
+      </div>
+      <h1>Predict a student's math score</h1>
+      <p class="lede">
+        Fill in each question below with the student's details. The model uses these
+        answers to estimate a math score out of 100.
+      </p>
+    </div>
+  </header>
+
+  <main class="paper-wrap">
+    <section class="sheet">
+      <form id="exam-form" action="{{ url_for('predict_datapoint') }}" method="post" novalidate>
+
+        <div class="question">
+          <span class="q-num c-teal">01</span>
+          <div class="field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="" selected disabled>Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="question">
+          <span class="q-num c-teal">02</span>
+          <div class="field">
+            <label for="ethnicity">Race or ethnicity</label>
+            <span class="hint">Grouped as reported in the source dataset</span>
+            <select id="ethnicity" name="ethnicity" required>
+              <option value="" selected disabled>Select ethnicity group</option>
+              <option value="group A">Group A</option>
+              <option value="group B">Group B</option>
+              <option value="group C">Group C</option>
+              <option value="group D">Group D</option>
+              <option value="group E">Group E</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="question">
+          <span class="q-num c-plum">03</span>
+          <div class="field">
+            <label for="parental_level_of_education">Parental level of education</label>
+            <select id="parental_level_of_education" name="parental_level_of_education" required>
+              <option value="" selected disabled>Select parental education</option>
+              <option value="some high school">Some high school</option>
+              <option value="high school">High school</option>
+              <option value="some college">Some college</option>
+              <option value="associate's degree">Associate's degree</option>
+              <option value="bachelor's degree">Bachelor's degree</option>
+              <option value="master's degree">Master's degree</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="question">
+          <span class="q-num c-plum">04</span>
+          <div class="field">
+            <label for="lunch">Lunch type</label>
+            <select id="lunch" name="lunch" required>
+              <option value="" selected disabled>Select lunch type</option>
+              <option value="standard">Standard</option>
+              <option value="free/reduced">Free or reduced</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="question">
+          <span class="q-num c-plum">05</span>
+          <div class="field">
+            <label for="test_preparation_course">Test preparation course</label>
+            <select id="test_preparation_course" name="test_preparation_course" required>
+              <option value="" selected disabled>Select course status</option>
+              <option value="none">Not completed</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="question">
+          <span class="q-num c-gold">06</span>
+          <div class="field">
+            <label>Reading and writing scores</label>
+            <span class="hint">Out of 100, whole numbers only</span>
+            <div class="two-up">
+              <div>
+                <label for="reading_score" style="font-weight:400; font-size:0.85rem; color: var(--ink-soft);">Reading score</label>
+                <input type="number" id="reading_score" name="reading_score" min="0" max="100" step="1" placeholder="e.g. 72" required />
+              </div>
+              <div>
+                <label for="writing_score" style="font-weight:400; font-size:0.85rem; color: var(--ink-soft);">Writing score</label>
+                <input type="number" id="writing_score" name="writing_score" min="0" max="100" step="1" placeholder="e.g. 74" required />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="submit" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            Predict math score
+          </button>
+          <span class="note">Estimates are based on patterns in past exam data, not a guarantee.</span>
+        </div>
+      </form>
+
+      {% if results %}
+      <div class="result">
+        <span class="seal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        </span>
+        <div class="text-block">
+          <span class="label">Predicted math score</span>
+          <div class="score-row">
+            <span class="score">{{ results }}</span>
+            <span class="out-of">out of 100</span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer class="site">
+    Built on scikit-learn regression models trained on student performance data.
+  </footer>
+</body>
+</html>

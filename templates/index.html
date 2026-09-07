@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Exam Performance Indicator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <a class="skip-link" href="#start">Skip to start prediction</a>
+
+  <header class="board">
+    <div class="board-inner">
+      <div class="badge-row">
+        <span class="board-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#14302B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </span>
+        <p class="eyebrow">Student exam performance indicator</p>
+      </div>
+      <h1>What shapes a student's math score?</h1>
+      <p class="lede">
+        Answer a few questions about a student's background and test preparation,
+        and this tool estimates their math score using a model trained on real exam records.
+      </p>
+    </div>
+
+    <div class="feature-row">
+      <div class="feature c-teal">
+        <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-4 4"/></svg></span>
+        <strong>Grounded in real data</strong>
+        <p>Trained on genuine student exam records, not guesswork.</p>
+      </div>
+      <div class="feature c-gold">
+        <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#14302B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span>
+        <strong>Instant estimate</strong>
+        <p>Get a predicted math score the moment you submit the form.</p>
+      </div>
+      <div class="feature c-plum">
+        <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+        <strong>See what matters</strong>
+        <p>Understand how background and preparation relate to outcomes.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="paper-wrap">
+    <section class="sheet" id="start">
+      <h2 style="font-size:1.3rem; margin-bottom: 0.5rem;">Before you start</h2>
+      <p style="color: var(--ink-soft); margin-top: 0;">
+        You'll enter gender, ethnicity group, parental education, lunch type,
+        test preparation status, and reading and writing scores. It takes under a minute.
+      </p>
+      <div class="actions" style="border-top: none; margin-top: 1.25rem; padding-top: 0;">
+        <a class="submit-link" href="{{ url_for('predict_datapoint') }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Start prediction
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    Built on scikit-learn regression models trained on student performance data.
+  </footer>
+</body>
+</html>
