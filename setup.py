@@ -22,7 +22,7 @@ This Function will return the list of requirements
 
 
 setup(
-name='ML Project',
+name='Student-exam-performance-indicator',
 version='0.0.1',
 author='Atul',
 author_email='atulchoudhary3213@gmail.com',
